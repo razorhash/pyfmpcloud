@@ -28,7 +28,7 @@ def balance_sheet(ticker, period = 'annual', ftype = 'full'):
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ftype : 'full', 'growth', 'short', 'growth-short'. Defines input sheet type. Defaults to full. 
     Returns:
-        Balance sheet info for selected tickers 
+        Balance sheet info for selected ticker
     """  
     
     typeurl = ''
@@ -56,7 +56,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ftype : 'full', 'growth'. Defines input sheet type. Defaults to full. 
     Returns:
-        Income statement info for selected tickers 
+        Income statement info for selected ticker
     """
     typeurl = ''
     try:
@@ -84,7 +84,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ftype : 'full', 'growth'. Defines input sheet type. Defaults to full. 
     Returns:
-        Income statement info for selected tickers 
+        Income statement info for selected ticker 
     """
     typeurl = ''
     try:
@@ -98,6 +98,26 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
 #            typeurl = 'income-statement-growth-shorten/'
     except:
         print('Cash Flow Statement type not correct')
+        
+    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def financial_ratios(ticker, period = 'annual', ttm = False):
+    """Financial Ratios API from https://fmpcloud.io/documentation#financialRatios
+    
+    Input:
+        ticker : ticker for which we need the balance sheet values
+        period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
+        ttm: trailing twelve months financial ratios. Default is False
+    Returns:
+        Financial ratios info for selected ticker 
+    """
+    if ttm:
+        typeurl = "ratios-ttm/"
+    else:
+        typeurl = "ratios/"
         
     url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
