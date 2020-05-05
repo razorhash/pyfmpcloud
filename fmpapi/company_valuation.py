@@ -1,6 +1,5 @@
 from urllib.request import urlopen
 import pandas as pd
-import json
 
 import configparser
 cfg = configparser.ConfigParser()
