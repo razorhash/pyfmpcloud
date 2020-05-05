@@ -134,3 +134,9 @@ dmypy.json
 
 # VS Code
 .vscode/
+
+# Tests
+.tests/
+
+# Config (to avoid API publish)
+config.ini
