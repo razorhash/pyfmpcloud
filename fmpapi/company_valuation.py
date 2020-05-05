@@ -52,7 +52,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
     """Income statement API from https://fmpcloud.io/documentation#incomeStatement
     
     Input:
-        ticker : ticker for which we need the balance sheet values
+        ticker : ticker for which we need the income statement
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ftype : 'full', 'growth'. Defines input sheet type. Defaults to full. 
     Returns:
@@ -80,7 +80,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
     """Cash Flow Statement API from https://fmpcloud.io/documentation#cashFlowStatement
     
     Input:
-        ticker : ticker for which we need the balance sheet values
+        ticker : ticker for which we need the cash flow statement
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ftype : 'full', 'growth'. Defines input sheet type. Defaults to full. 
     Returns:
@@ -108,7 +108,7 @@ def financial_ratios(ticker, period = 'annual', ttm = False):
     """Financial Ratios API from https://fmpcloud.io/documentation#financialRatios
     
     Input:
-        ticker : ticker for which we need the balance sheet values
+        ticker : ticker for which we need the financial ratios
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
         ttm: trailing twelve months financial ratios. Default is False
     Returns:
@@ -128,7 +128,7 @@ def key_metrics(ticker, period = 'annual'):
     """Key Metrics API from https://fmpcloud.io/documentation#keyMetrics
     
     Input:
-        ticker : ticker for which we need the balance sheet values
+        ticker : ticker for which we need the key metrics
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
     Returns:
         Key metrics info for selected ticker 
@@ -143,7 +143,7 @@ def enterprise_value(ticker, period = 'annual'):
     """Enterprise value API from https://fmpcloud.io/documentation#enterpriseValue
     
     Input:
-        ticker : ticker for which we need the balance sheet values
+        ticker : ticker for which we need the enterprise value
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
     Returns:
         Enterprise value info for selected ticker 
@@ -154,3 +154,87 @@ def enterprise_value(ticker, period = 'annual'):
     data = response.read().decode("utf-8")
     return pd.read_json(data)
     
+def financial_statements_growth(ticker, period = 'annual'):
+    """Financial Statements Growth API from https://fmpcloud.io/documentation#financialStatementGrowth
+    
+    Input:
+        ticker : ticker for which we need the financial growth
+        period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
+    Returns:
+        Financial Statements Growth info for selected ticker 
+    """
+    typeurl = "financial-growth/"
+    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def dcf(ticker, history = 'today'):
+    """Discounted Cash Flow Valuation API from https://fmpcloud.io/documentation#dcf
+    
+    Input:
+        ticker : ticker for which we need the dcf 
+        history: 'today','daily', 'quarter', 'annual'. Periodicity of requested DCF valuations. Defaults to single value of today
+    Returns:
+        Discounted Cash Flow Valuation info for selected ticker 
+    """
+    try:
+        if history == 'today':
+            typeurl = 'discounted-cash-flow/'
+            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+        elif history == 'daily':
+            typeurl = 'historical-daily-discounted-cash-flow/'
+            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+        elif history == 'annual':
+            typeurl = 'historical-discounted-cash-flow-statement/'
+            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+        elif history == 'quarter':
+            typeurl = 'historical-discounted-cash-flow-statement/'
+            url = urlroot + typeurl + ticker + "?" + "period=" + history + "&apikey=" + apikey
+    except:
+        print('Discounted Cash Flow history requested not correct')
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def market_capitalization(ticker, history = 'today'):
+    """Market Capitalization API from https://fmpcloud.io/documentation#marketCapitalization
+    
+    Input:
+        ticker : ticker for which we need the Market Cap 
+        history: 'today','daily'. Periodicity of requested Market Caps. Defaults to single value of today
+    Returns:
+        Market Cap info for selected ticker 
+    """
+    try:
+        if history == 'today':
+            typeurl = 'market-capitalization/'
+        elif history == 'daily':
+            typeurl = 'historical-market-capitalization/'
+    except:
+        print('Market Cap history requested not correct')
+    url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def rating(ticker, history = 'today'):
+    """Rating API from https://fmpcloud.io/documentation#rating
+    
+    Input:
+        ticker : ticker for which we need the rating info 
+        history: 'today','daily'. Periodicity of requested ratings. Defaults to single value of today
+    Returns:
+        rating info for selected ticker 
+    """
+    try:
+        if history == 'today':
+            typeurl = 'rating/'
+        elif history == 'daily':
+            typeurl = 'historical-rating/'
+    except:
+        print('Rating history requested not correct')
+    url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
