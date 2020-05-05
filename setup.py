@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/razorhash/fmp/",
     packages=setuptools.find_packages(),
-    keywords=["Financial Markets Prep", "python", "wrapper", "API"],
+    keywords=["Financial Markets Prep", "python", "wrapper", "API", "fmpcloud.io", "fmpcloud"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: MIT License",
