@@ -11,9 +11,9 @@ setuptools.setup(
     description="A python-based wrapper for the Financial Markets Prep API for financial data of public companies",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/razorhash/fmp/,
+    url="https://github.com/razorhash/fmp/",
     packages=setuptools.find_packages(),
-    keywords=["Financial Markets Prep", "python", "wrapper", "API"]
+    keywords=["Financial Markets Prep", "python", "wrapper", "API"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
