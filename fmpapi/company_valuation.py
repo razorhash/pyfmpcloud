@@ -123,3 +123,34 @@ def financial_ratios(ticker, period = 'annual', ttm = False):
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
+
+def key_metrics(ticker, period = 'annual'):
+    """Key Metrics API from https://fmpcloud.io/documentation#keyMetrics
+    
+    Input:
+        ticker : ticker for which we need the balance sheet values
+        period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
+    Returns:
+        Key metrics info for selected ticker 
+    """
+    typeurl = "key-metrics/"
+    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def enterprise_value(ticker, period = 'annual'):
+    """Enterprise value API from https://fmpcloud.io/documentation#enterpriseValue
+    
+    Input:
+        ticker : ticker for which we need the balance sheet values
+        period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
+    Returns:
+        Enterprise value info for selected ticker 
+    """
+    typeurl = "enterprise-values/"
+    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+    
