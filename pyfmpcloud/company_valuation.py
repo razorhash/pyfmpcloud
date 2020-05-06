@@ -1,4 +1,5 @@
 from urllib.request import urlopen
+from urllib.parse import urlencode
 import pandas as pd
 from pyfmpcloud import settings
 
@@ -332,6 +333,7 @@ def stock_screener(mcgt = None, mclt = None, bgt = None, blt = None, divgt = Non
             url = url + '&limit=' + str(limit) +'&apikey=' + apikey
     except ValueError('Please check screening values provided'):
         print('Exiting')
+    url = "20%".join(url.split(" "))
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
