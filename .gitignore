@@ -137,6 +137,3 @@ dmypy.json
 
 # Tests
 .tests/
-
-# Config (to avoid API publish)
-config.ini
