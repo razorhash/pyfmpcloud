@@ -25,3 +25,5 @@ def set_apikey(apikey):
     cfg = configparser.ConfigParser()
     cfg.read(cfile)
     cfg['API']['api_key'] = apikey
+    with open(cfile, 'w') as configfile:
+        cfg.write(configfile)
