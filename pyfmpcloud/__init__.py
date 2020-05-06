@@ -15,6 +15,13 @@ from .company_valuation import stock_screener
 from .info import stocks_list
 from .info import company_profile
 
+from .stock_time_series import real_time_quote
+from .stock_time_series import ticker_search
+from .stock_time_series import historical_stock_data
+from .stock_time_series import batch_request_eod_prices
+from .stock_time_series import available_markets_and_tickers
+from .stock_time_series import stock_market_performances
+
 from .settings import get_urlroot
 from .settings import get_urlrootfmp
 from .settings import get_apikey
