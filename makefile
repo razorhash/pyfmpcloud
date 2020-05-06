@@ -5,3 +5,7 @@ git:
 
 setup:
     python setup.py install
+    
+dist:
+    python setup.py sdist
+    python -m twine upload --skip-existing dist/*
