@@ -11,7 +11,7 @@ def rss_feed():
     """RSS Feed API from https://fmpcloud.io/documentation#rssFeed
 
     Returns:
-        JSON -- Returns any filings of the day over the last week
+        Returns any filings of the day over the last week
     """        
     localurl = "rss_feed?apikey="
     url = urlroot + localurl + apikey
@@ -40,7 +40,7 @@ def balance_sheet(ticker, period = 'annual', ftype = 'full'):
             typeurl = 'balance-sheet-statement-shorten/'
         elif ftype == 'growth-short':
             typeurl = 'balance-sheet-statement-growth-shorten/'
-    except:
+    except KeyError:
         print('Balance sheet type not correct')
         
     url = urlroot + typeurl + ticker + "?" + "datatype=csv&period=" + period + "&apikey=" + apikey
@@ -67,7 +67,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
 #            typeurl = 'income-statement-shorten/'
 #        elif bstype == 'growth-short':
 #            typeurl = 'income-statement-growth-shorten/'
-    except:
+    except KeyError:
         print('Income statement type not correct')
         
     url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
@@ -95,7 +95,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
 #            typeurl = 'income-statement-shorten/'
 #        elif bstype == 'growth-short':
 #            typeurl = 'income-statement-growth-shorten/'
-    except:
+    except KeyError:
         print('Cash Flow Statement type not correct')
         
     url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
@@ -190,7 +190,7 @@ def dcf(ticker, history = 'today'):
         elif history == 'quarter':
             typeurl = 'historical-discounted-cash-flow-statement/'
             url = urlroot + typeurl + ticker + "?" + "period=" + history + "&apikey=" + apikey
-    except:
+    except KeyError:
         print('Discounted Cash Flow history requested not correct')
     response = urlopen(url)
     data = response.read().decode("utf-8")
@@ -210,7 +210,7 @@ def market_capitalization(ticker, history = 'today'):
             typeurl = 'market-capitalization/'
         elif history == 'daily':
             typeurl = 'historical-market-capitalization/'
-    except:
+    except KeyError:
         print('Market Cap history requested not correct')
     url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
     response = urlopen(url)
@@ -231,7 +231,7 @@ def rating(ticker, history = 'today'):
             typeurl = 'rating/'
         elif history == 'daily':
             typeurl = 'historical-rating/'
-    except:
+    except KeyError:
         print('Rating history requested not correct')
     url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
     response = urlopen(url)
