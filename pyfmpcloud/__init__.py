@@ -10,6 +10,7 @@ from .company_valuation import financial_statements_growth
 from .company_valuation import dcf
 from .company_valuation import market_capitalization
 from .company_valuation import rating
+from .company_valuation import stock_screener
 
 from .info import stocks_list
 from .info import company_profile

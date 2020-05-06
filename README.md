@@ -45,6 +45,8 @@ Here, you have functions that wrap around the APIs listed in fmpcloud.io (see [f
     
 ``rating``
     
+``stock_screener``
+    
 ### info.py
 
 These contain general functions from fmpcloud.io 's sister API (see [financialmodelprep.com API documentation](https://financialmodelingprep.com/developer/docs/))

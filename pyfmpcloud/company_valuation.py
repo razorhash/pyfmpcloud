@@ -253,3 +253,85 @@ def rating(ticker, history = 'today'):
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
+
+def stock_screener(mcgt = None, mclt = None, bgt = None, blt = None, divgt = None, divlt = None, volgt = None, vollt = None, sector = None, limit = 100):
+    """Stock Screener API from https://fmpcloud.io/documentation#rating
+    
+    Input:
+        mcgt: stocks with market cap greater than this value
+        mclt: stocks with market cap less than this value
+        bgt: stocks with beta greater than this value
+        blt: stocks with beta less than this value
+        divgt: stock with dividends per share greater than this value
+        divlt: stocks with dividends per share less than this value
+        volgt: stocks with average trading volume greater than this value
+        vollt: stocks with average trading volume less than this value
+        sector: stocks within this 
+        limit: number of return results
+    Returns:
+        List of stocks meeting the screening criteria
+    """
+    urlroot = settings.get_urlroot()
+    apikey = settings.get_apikey()
+    urlss = 'stock-screener?'
+    urlbase = urlroot + urlss
+    url = urlroot + urlss
+    if sector is not None:
+        urlsector = 'sector=' + sector #API call adds the %20 automatically
+        url = url + urlsector
+    if mcgt is not None:
+        urlmcgt =  "marketCapMoreThan=" + str(mcgt)
+        if url == urlbase:
+            url = url + urlmcgt
+        else:
+            url = url + '&' + urlmcgt
+    if mclt is not None:
+        urlmclt =  "marketCapLowerThan=" + str(mclt)
+        if url == urlbase:
+            url = url + urlmclt
+        else:
+            url = url + '&' + urlmclt
+    if bgt is not None:
+        urlbgt =  "betaMoreThan=" + str(bgt)
+        if url == urlbase:
+            url = url + urlbgt
+        else:
+            url = url + '&' + urlbgt
+    if blt is not None:
+        urlblt =  "betaLowerThan=" + str(blt)
+        if url == urlbase:
+            url = url + urlblt
+        else:
+            url = url + '&' + urlblt
+    if divgt is not None:
+        urldivgt =  "dividendMoreThan=" + str(divgt)
+        if url == urlbase:
+            url = url + urldivgt
+        else:
+            url = url + '&' + urldivgt
+    if divlt is not None:
+        urldivlt =  "dividendLowerThan=" + str(divlt)
+        if url == urlbase:
+            url = url + urldivlt
+        else:
+            url = url + '&' + urldivlt
+    if volgt is not None:
+        urlvolgt =  "volumeMoreThan=" + str(volgt)
+        if url == urlbase:
+            url = url + urlvolgt
+        else:
+            url = url + '&' + urlvolgt
+    if vollt is not None:
+        urlvollt =  "volumeLowerThan=" + str(vollt)
+        if url == urlbase:
+            url = url + urlvollt
+        else:
+            url = url + '&' + urlvollt
+    try:
+        if url != urlbase:
+            url = url + '&limit=' + str(limit) +'&apikey=' + apikey
+    except ValueError('Please check screening values provided'):
+        print('Exiting')
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
