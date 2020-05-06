@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="fmp API wrapper", 
-    version="0.0.1",
+    version="0.0.2",
     author="razorhash",
     author_email="hashim.mazhar@gmail.com",
     license="MIT",
