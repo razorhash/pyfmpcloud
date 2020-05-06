@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import configparser
+import os
 
-cfile = 'config.ini'
+cfile = os.path.join(os.path.dirname(__file__), 'config.ini')
+#cfile = 'config.ini'
 
 def get_urlroot():
     cfg = configparser.ConfigParser()
