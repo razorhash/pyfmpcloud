@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import configparser
 
-cfile = '../config.ini'
+cfile = 'config.ini'
 
 def get_urlroot():
     cfg = configparser.ConfigParser()
