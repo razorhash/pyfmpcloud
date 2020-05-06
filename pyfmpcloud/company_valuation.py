@@ -1,6 +1,6 @@
 from urllib.request import urlopen
 import pandas as pd
-from fmp import settings
+from pyfmpcloud import settings
 
 def rss_feed():
     """RSS Feed API from https://fmpcloud.io/documentation#rssFeed

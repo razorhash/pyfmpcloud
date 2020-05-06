@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from urllib.request import urlopen
 import pandas as pd
-from fmp import settings
+from pyfmpcloud import settings
 
 def stocks_list():
     """Stocks list API from https://financialmodelingprep.com/developer/docs/#Company-Profile
