@@ -1,6 +1,10 @@
 # Python wrapper library for the Financial Markets Prep pro (fmpcloud.io)
 A python wrapper for the Financial Model Prep API pro (fmpcloud.io) for analysis of public companies
 
+To install please use:
+
+``pip install pyfmpcloud``
+
 This is the first release and includes the following functionalities:
 
 ### settings.py
