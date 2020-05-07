@@ -1,5 +1,4 @@
 from urllib.request import urlopen
-from urllib.parse import urlencode
 import pandas as pd
 from pyfmpcloud import settings
 

@@ -11,8 +11,9 @@ def stocks_list():
     Returns:
         Dataframe -- Returns company profile of the requested company (ticker)
     """      
-    urlrootfmp = settings.get_urlrootfmp()
-    url = urlrootfmp + "company/stock/list"
+    urlroot = settings.get_urlrootfmp()
+    apikey = settings.get_apikey()
+    url = urlroot + "company/stock/list?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -22,9 +23,10 @@ def company_profile(ticker):
     
     Returns:
         DataFrame -- Returns company profile
-    """        
-    urlrootfmp = settings.get_urlrootfmp()
-    url = urlrootfmp + "company/profile/" + ticker
+    """
+    urlroot = settings.get_urlroot()
+    apikey = settings.get_apikey()
+    url = urlroot + "company/profile/" + ticker + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
