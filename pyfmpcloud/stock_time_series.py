@@ -53,7 +53,7 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
         start - start date in the format yyyy-mm-dd. eg: '2018-01-01'
         end - end date in the format yyyy-mm-dd. eg: '2019-01-01'
     Returns:
-        Dataframe -- matching tickers, upto 'limit' number of values, found on the specified exchange
+        Dataframe -- historical stock data
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
@@ -86,10 +86,30 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
     data = data.set_index('date')
     return data
 
-def batch_request_eod_prices():
+def batch_request_eod_prices(tickers = None, date = None):
+    """Daily candle stick data API for all available or specified tickers. From https://fmpcloud.io/documentation#batchEndOfTheDay
+    
+    Input:
+        tickers - a list of strings only. Will not work as expected if 'AAPL' is sent. Please send ['AAPL'] for single stock and ['AAPL','FB','MSFT'] for a batch. Default value returns data for all available stocks. If batch data for specific is requested, a date must also be provided.
+    Returns:
+        Dataframe -- batch request for daily candle information for all stocks.
+    """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    return 0
+    if tickers is None:
+        url = urlroot + "batch-request-end-of-day-prices?apikey=" + apikey
+    elif (tickers is not None) and (date is None):
+        raise Exception('For batch query of specific stocks, please specify a date in the format yyyy-mm-dd')
+    elif (tickers is not None) and (date is not None):
+        tick = ''
+        for ticker in tickers:
+            tick = tick + ticker + ','
+        url = urlroot + "batch-request-end-of-day-prices/" + tick + "?date=" + date + "&apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    if pd.read_json(data).empty is True:
+        raise ValueError("Data not found for " + str(tickers) + " on specified date " + date)
+    return pd.read_json(data)
 
 def available_markets_and_tickers():
     urlroot = settings.get_urlroot()
