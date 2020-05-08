@@ -140,12 +140,58 @@ def company_profile(ticker):
     return pd.read_json(data)
     
 
-#def available_markets_and_tickers():
-#    urlroot = settings.get_urlroot()
-#    apikey = settings.get_apikey()
-#    return 0
+def available_markets_and_tickers(marketType = None, marketPrices = False):
+    """List of available tickers per specified market, and their prices. From https://fmpcloud.io/documentation#availableMarketandTickers
+    
+    Input:
+        marketType : type of market for which we need the available tickers/prices. marketType can be "ETF", "Commodities", "Euronext", "NYSE", "AMEX", "TSX", "Mutual Funds", "Index", "Nasdaq". 
+        marketPrices : Boolean to indicate if you want the prices of the tickers for the specified marketType.
+    Returns:
+        Dataframe -- Returns list of available tickers per specified market, and their prices if marketPrices = True
+    """
+    urlroot = settings.get_urlroot()
+    apikey = settings.get_apikey()
+    
+    if marketType is None:
+        raise Exception("Please provide marketType. For a list of available options, see function documentation or visit https://fmpcloud.io/documentation#availableMarketandTickers")
+    urlmarket = map_markets(marketType.lower(), marketPrices)
+    url = urlroot + urlmarket + "?apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
 #
 #def stock_market_performances():
 #    urlroot = settings.get_urlroot()
 #    apikey = settings.get_apikey()
 #    return 0
+
+def map_markets(marketType, marketPrices):
+    marketToApi = {
+            "etf" : "available-etfs/",
+            "commodities" : "available-commodities/",
+            "euronext" : "available-euronext/",
+            "nyse" : "availabe-nyse/",
+            "amex" : "available-amex/",
+            "tsx" : "available-tsx/",
+            "index": "available-indexes/",
+            "mutual fund": "available-mutual-funds/",
+            "nasdaq":"available-nasdaq/",
+            }
+    
+    marketPricesToApi = {
+            "etf" : "etf/",
+            "commodities" : "commodity/",
+            "euronext" : "euronext/",
+            "nyse" : "nyse/",
+            "amex" : "amex/",
+            "tsx" : "tsx/",
+            "index": "index/",
+            "mutual fund": "mutual_fund/",
+            "nasdaq":"nasdaq/",
+            }
+    
+    if marketPrices == False:
+        urlm = "symbol/" + marketToApi[marketType]
+    elif marketPrices == True:
+        urlm = "quotes/" + marketPricesToApi[marketType]
+    return urlm
