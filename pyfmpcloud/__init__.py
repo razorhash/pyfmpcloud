@@ -21,6 +21,9 @@ from .stock_time_series import stock_market_performances
 from .stock_time_series import stocks_list
 from .stock_time_series import company_profile
 
+from .forex import forex_realtime_quote
+from .forex import forex_historical_data
+
 from .settings import get_urlroot
 from .settings import get_urlrootfmp
 from .settings import get_apikey
