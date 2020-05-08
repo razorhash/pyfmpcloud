@@ -47,11 +47,21 @@ Here, you have functions that wrap around the APIs listed in fmpcloud.io (see [f
     
 ``stock_screener``
     
-### info.py
+### stock_time_series.py
 
-These contain general functions from fmpcloud.io 's sister API (see [financialmodelprep.com API documentation](https://financialmodelingprep.com/developer/docs/))
+These contain general functions from fmpcloud.io 's sister API (see [fmpcloud.io API documentation](https://fmpcloud.io/documentation)) under Stock Time Series. these are:
+
+``real_time_quote``: real-time quotes for specified tickers
+
+``ticker_search``: partial matching of tickers based on provided string element
+
+``historical_stock_data``: historical stock data for specified tickers
+
+``batch_request_eod_prices``: batch request for EOD prices. Only accepts an array of strings, even for a single ticker input
 
 ``stocks_list``: list of all available tickers on the API
 
-``company_profile``: returns the high level company profile
+``company_profile``: company profile for the specified ticker
+
+``available_markets_and_tickers``: list of available stocks on the specified market (e.g. Nasdaq), and prices of the tickers on the specified market
 
