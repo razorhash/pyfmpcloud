@@ -41,7 +41,7 @@ def balance_sheet(ticker, period = 'annual', ftype = 'full'):
     except KeyError:
         print('Balance sheet type not correct')
         
-    url = urlroot + typeurl + ticker + "?" + "datatype=csv&period=" + period + "&apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "datatype=csv&period=" + period + "&apikey=" + apikey
     data = pd.read_csv(url)
     return data
 
@@ -70,7 +70,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
     except KeyError:
         raise KeyError('Income statement type not correct')
         
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -100,7 +100,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
     except KeyError:
         raise KeyError('Cash Flow Statement type not correct')
         
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -122,7 +122,7 @@ def financial_ratios(ticker, period = 'annual', ttm = False):
     else:
         typeurl = "ratios/"
         
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -139,7 +139,8 @@ def key_metrics(ticker, period = 'annual'):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     typeurl = "key-metrics/"
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -156,7 +157,8 @@ def enterprise_value(ticker, period = 'annual'):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     typeurl = "enterprise-values/"
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -173,7 +175,8 @@ def financial_statements_growth(ticker, period = 'annual'):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     typeurl = "financial-growth/"
-    url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
+    
+    url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -192,16 +195,16 @@ def dcf(ticker, history = 'today'):
     try:
         if history == 'today':
             typeurl = 'discounted-cash-flow/'
-            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+            url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
         elif history == 'daily':
             typeurl = 'historical-daily-discounted-cash-flow/'
-            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+            url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
         elif history == 'annual':
             typeurl = 'historical-discounted-cash-flow-statement/'
-            url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+            url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
         elif history == 'quarter':
             typeurl = 'historical-discounted-cash-flow-statement/'
-            url = urlroot + typeurl + ticker + "?" + "period=" + history + "&apikey=" + apikey
+            url = urlroot + typeurl + ticker.upper() + "?" + "period=" + history + "&apikey=" + apikey
     except KeyError:
         raise KeyError('Discounted Cash Flow history requested not correct. ' + history + ' is not an accepted key')
     response = urlopen(url)
@@ -226,7 +229,7 @@ def market_capitalization(ticker, history = 'today'):
             typeurl = 'historical-market-capitalization/'
     except KeyError:
         print('Market Cap history requested not correct')
-    url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -249,7 +252,7 @@ def rating(ticker, history = 'today'):
             typeurl = 'historical-rating/'
     except KeyError:
         print('Rating history requested not correct')
-    url = urlroot + typeurl + ticker + "?" + "apikey=" + apikey
+    url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)

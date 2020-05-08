@@ -2,41 +2,39 @@ from urllib.request import urlopen
 import pandas as pd
 from pyfmpcloud import settings
 
-def forex_realtime_quote(fxtype):
-    """Forex Real time quotes including list of available fx, their prices and a combination function to return both. From https://fmpcloud.io/documentation#forex
+def crypto_realtime_quote(cryptotype):
+    """Crypto Real time quotes including list of available cryptos, and their prices. From https://fmpcloud.io/documentation#crypto
     
     Input:
-        fxtype : can be 'list', 'price' or 'both'
+        cryptotype : can be 'list', 'price'
     Returns:
-        list of available fx, their prices or both
+        list of available crypto trading pairs, and their prices 
     """        
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    if fxtype == 'both':
-        urlfx = "fx?apikey="
-    elif fxtype == 'list':
-        urlfx = "symbol/available-forex-currency-pairs?apikey="
-    elif fxtype == 'price':
-        urlfx = "quotes/forex?apikey="
+    if cryptotype == 'list':
+        urlc = "symbol/available-cryptocurrencies?apikey="
+    elif cryptotype == 'price':
+        urlc = "quotes/crypto?apikey="
     else:
-        raise KeyError("Invalid fxtype " + fxtype)
-    url = urlroot + urlfx + apikey
+        raise KeyError("Invalid cryptotype " + cryptotype + " Allowed values are 'list' and 'price'.")
+    url = urlroot + urlc + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
     
-def forex_historical_data(ticker, period = None, dailytype = None, last = None, start = None, end = None):
-    """Forex Historical data API for partial matching of stocks over specified exchange. From https://fmpcloud.io/documentation#historicalStockData
+def crypto_historical_data(ticker, period = None, dailytype = None, last = None, start = None, end = None):
+    """Crypto Historical data API for partial matching of stocks over specified exchange. For list of available crypto pairs, please use: crypto.crypto_realtime_quote(cryptotype = 'list'). From https://fmpcloud.io/documentation#historicalStockData
     
     Input:
-        ticker - company for which you want the historical stock data. for complete list of fx, use forex.forex_realtime_quote(fxtype = 'list')
+        ticker - company for which you want the historical crypto data. for complete list of crypto, use crypto.crypto_realtime_quote(cryptotype = 'list')
         period - tick periodicity - can be '1min', '5min', '15min', '30min', '1hour'. Defaults to '15min'. Do not use with daily type
-        dailytype - can be 'line', 'change'. line chart info for daily stock or daily change and volume. Do not use with period.
-        last - stock data for last x days. Only works with dailytype. Does not work with period 
+        dailytype - can be 'line', 'change'. line chart info for daily crypto price or daily change and volume. Do not use with period.
+        last - crypto data for last x days. Only works with dailytype. Does not work with period 
         start - start date in the format yyyy-mm-dd. eg: '2018-01-01'
         end - end date in the format yyyy-mm-dd. eg: '2019-01-01'
     Returns:
-        Dataframe -- historical fx data
+        Dataframe -- historical crypto data
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
@@ -68,4 +66,3 @@ def forex_historical_data(ticker, period = None, dailytype = None, last = None, 
     data['date'] = pd.to_datetime(data['date'], format = '%Y-%m-%d %H:%M:%S')
     data = data.set_index('date')
     return data
-

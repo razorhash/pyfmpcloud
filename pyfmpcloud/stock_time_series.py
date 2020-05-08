@@ -43,17 +43,17 @@ def ticker_search(match = None, limit = 100, exchange = 'NASDAQ'):
     return pd.read_json(data)
 
 def historical_stock_data(ticker, period = None, dailytype = None, last = None, start = None, end = None):
-    """Historical stock data API for partial matching of stocks over specified exchange. From https://fmpcloud.io/documentation#historicalStockData
+    """Historical stock data API for . From https://fmpcloud.io/documentation#historicalStockData
     
     Input:
-        ticker - company for which you want the historical stock data
+        ticker - fx for which you want the historical data
         period - tick periodicity - can be '1min', '5min', '15min', '30min', '1hour'. Defaults to '15min'. Do not use with daily type
-        dailytype - can be 'line', 'change'. line chart info for daily stock or daily change and volume. Do not use with period.
-        last - stock data for last x days. Only works with dailytype. Does not work with period 
+        dailytype - can be 'line', 'change'. line chart info for daily price or daily change and volume. Do not use with period.
+        last - fx data for last x days. Only works with dailytype. Does not work with period 
         start - start date in the format yyyy-mm-dd. eg: '2018-01-01'
         end - end date in the format yyyy-mm-dd. eg: '2019-01-01'
     Returns:
-        Dataframe -- historical stock data
+        Dataframe -- fx stock data
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
