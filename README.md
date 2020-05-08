@@ -49,7 +49,7 @@ Here, you have functions that wrap around the APIs listed in fmpcloud.io (see [f
     
 ### stock_time_series.py
 
-These contain general functions from fmpcloud.io 's sister API (see [fmpcloud.io API documentation](https://fmpcloud.io/documentation)) under Stock Time Series. these are:
+These contain functions from fmpcloud.io 's API for Stock Time Series (see [fmpcloud.io API documentation](https://fmpcloud.io/documentation)) under Stock Time Series. these are:
 
 ``real_time_quote``: real-time quotes for specified tickers
 
@@ -66,3 +66,17 @@ These contain general functions from fmpcloud.io 's sister API (see [fmpcloud.io
 ``available_markets_and_tickers``: list of available stocks on the specified market (e.g. Nasdaq), and prices of the tickers on the specified market
 
 ``stock_market_performances``: overview of the market performance across specified performance type, such as by sector, or by largest gainers.
+
+## forex.py
+These contain functions from fmpcloud.io 's API for Forex Time Series (see [fmpcloud.io API documentation](https://fmpcloud.io/documentation)) under Forex. these are:
+
+``forex_real_time_quote``: real-time quotes for specified fx tickers
+
+``forex_historical_data``: historical fx data for specified tickers
+
+## crypto.py
+These contain functions from fmpcloud.io 's API for Crypto Time Series (see [fmpcloud.io API documentation](https://fmpcloud.io/documentation)) under Crypto. these are:
+
+``crypto_real_time_quote``: real-time quotes for specified crypto tickers
+
+``crypto_historical_data``: historical crypto data for specified tickers
