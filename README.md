@@ -1,4 +1,4 @@
-# Python wrapper library for the Financial Markets Prep pro (fmpcloud.io)
+# Python wrapper library for the Financial Model Prep pro (fmpcloud.io)
 A python wrapper for the Financial Model Prep API pro (fmpcloud.io) for analysis of public companies
 
 To install please use:
@@ -65,3 +65,4 @@ These contain general functions from fmpcloud.io 's sister API (see [fmpcloud.io
 
 ``available_markets_and_tickers``: list of available stocks on the specified market (e.g. Nasdaq), and prices of the tickers on the specified market
 
+``stock_market_performances``: overview of the market performance across specified performance type, such as by sector, or by largest gainers.

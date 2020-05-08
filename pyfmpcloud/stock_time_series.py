@@ -140,7 +140,7 @@ def company_profile(ticker):
     return pd.read_json(data)
     
 
-def available_markets_and_tickers(marketType = None, marketPrices = False):
+def available_markets_and_tickers(markettype = None, marketprices = False):
     """List of available tickers per specified market, and their prices. From https://fmpcloud.io/documentation#availableMarketandTickers
     
     Input:
@@ -152,20 +152,30 @@ def available_markets_and_tickers(marketType = None, marketPrices = False):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     
-    if marketType is None:
+    if markettype is None:
         raise Exception("Please provide marketType. For a list of available options, see function documentation or visit https://fmpcloud.io/documentation#availableMarketandTickers")
-    urlmarket = map_markets(marketType.lower(), marketPrices)
+    urlmarket = map_markets(markettype.lower(), marketprices)
     url = urlroot + urlmarket + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
-#
-#def stock_market_performances():
-#    urlroot = settings.get_urlroot()
-#    apikey = settings.get_apikey()
-#    return 0
 
-def map_markets(marketType, marketPrices):
+def stock_market_performances(performancetype):
+    """Provides an overview of the market performance across specified performance type. https://fmpcloud.io/documentation#stockMarketPerformances
+    
+    Input:
+        performancetype : type of performance for which data is sought. performance type can be "active", "gainers", "losers", "sector", "sector historical", "market hours". 
+    Returns:
+        Dataframe -- market performance data by specified performance type
+    """
+    urlroot = settings.get_urlroot()
+    apikey = settings.get_apikey()
+    url = urlroot + map_performance(performancetype.lower()) + "?apikey=" +apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+
+def map_markets(markettype, marketPrices):
     marketToApi = {
             "etf" : "available-etfs/",
             "commodities" : "available-commodities/",
@@ -189,9 +199,23 @@ def map_markets(marketType, marketPrices):
             "mutual fund": "mutual_fund/",
             "nasdaq":"nasdaq/",
             }
-    
     if marketPrices == False:
-        urlm = "symbol/" + marketToApi[marketType]
+        urlm = "symbol/" + marketToApi[markettype]
     elif marketPrices == True:
-        urlm = "quotes/" + marketPricesToApi[marketType]
+        urlm = "quotes/" + marketPricesToApi[marketPrices]
     return urlm
+
+def map_performance(performancetype):
+    performanceToAPI = {
+            "active" : "actives",
+            "gainers" : "losers",
+            "losers" : "gainers",
+            "sector" : "sectors-performance",
+            "sector historical" : "historical-sectors-performance",
+            "market hours" : "market-hours"
+            }
+    try: 
+        urlp = performanceToAPI[performancetype]
+    except ValueError:
+        raise ValueError("Invalid 'performancetype' value " + performancetype)
+    return urlp

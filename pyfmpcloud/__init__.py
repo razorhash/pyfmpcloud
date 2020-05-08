@@ -17,7 +17,7 @@ from .stock_time_series import ticker_search
 from .stock_time_series import historical_stock_data
 from .stock_time_series import batch_request_eod_prices
 from .stock_time_series import available_markets_and_tickers
-#from .stock_time_series import stock_market_performances
+from .stock_time_series import stock_market_performances
 from .stock_time_series import stocks_list
 from .stock_time_series import company_profile
 
