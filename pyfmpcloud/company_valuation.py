@@ -68,7 +68,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
 #        elif bstype == 'growth-short':
 #            typeurl = 'income-statement-growth-shorten/'
     except KeyError:
-        print('Income statement type not correct')
+        raise KeyError('Income statement type not correct')
         
     url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
@@ -98,7 +98,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
 #        elif bstype == 'growth-short':
 #            typeurl = 'income-statement-growth-shorten/'
     except KeyError:
-        print('Cash Flow Statement type not correct')
+        raise KeyError('Cash Flow Statement type not correct')
         
     url = urlroot + typeurl + ticker + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
@@ -203,7 +203,7 @@ def dcf(ticker, history = 'today'):
             typeurl = 'historical-discounted-cash-flow-statement/'
             url = urlroot + typeurl + ticker + "?" + "period=" + history + "&apikey=" + apikey
     except KeyError:
-        print('Discounted Cash Flow history requested not correct')
+        raise KeyError('Discounted Cash Flow history requested not correct. ' + history + ' is not an accepted key')
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)

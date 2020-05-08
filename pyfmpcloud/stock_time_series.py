@@ -111,12 +111,41 @@ def batch_request_eod_prices(tickers = None, date = None):
         raise ValueError("Data not found for " + str(tickers) + " on specified date " + date)
     return pd.read_json(data)
 
-def available_markets_and_tickers():
+def stocks_list():
+    """Stocks list API from https://financialmodelingprep.com/developer/docs/#Company-Profile
+    
+    Input:
+        ticker : ticker for which we need the company profile
+    Returns:
+        Dataframe -- Returns company profile of the requested company (ticker)
+    """
+    urlroot = settings.get_urlrootfmp()
+    apikey = settings.get_apikey()
+    url = urlroot + "company/stock/list?apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+    
+def company_profile(ticker):
+    """Company profile API from https://financialmodelingprep.com/developer/docs/#Symbols-List
+    
+    Returns:
+        DataFrame -- Returns company profile
+    """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    return 0
+    url = urlroot + "company/profile/" + ticker + "?apikey=" + apikey
+    response = urlopen(url)
+    data = response.read().decode("utf-8")
+    return pd.read_json(data)
+    
 
-def stock_market_performances():
-    urlroot = settings.get_urlroot()
-    apikey = settings.get_apikey()
-    return 0
+#def available_markets_and_tickers():
+#    urlroot = settings.get_urlroot()
+#    apikey = settings.get_apikey()
+#    return 0
+#
+#def stock_market_performances():
+#    urlroot = settings.get_urlroot()
+#    apikey = settings.get_apikey()
+#    return 0
