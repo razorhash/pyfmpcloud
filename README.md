@@ -1,5 +1,10 @@
 # A Python wrapper library for the Financial Model Prep pro (fmpcloud.io)
 
+[![PyPI Latest Release](https://img.shields.io/pypi/v/pyfmpcloud.svg)](https://pypi.org/project/pyfmpcloud/)
+[![Package Status](https://img.shields.io/pypi/status/pyfmpcloud.svg)](https://pypi.org/project/pyfmpcloud/)
+[![License](https://img.shields.io/pypi/l/pyfmpcloud.svg)](https://github.com/razorhash/pyfmpcloud/blob/master/LICENSE)
+![downloads](https://img.shields.io/pypi/dm/pyfmpcloud)
+
 pyfmpcloud is a Python wrapper library for the Financial Model Prep pro API (fmpcloud.io) 
 
 ## Installation
