@@ -1,4 +1,4 @@
-# pyfmpcloud A Python wrapper library for the Financial Model Prep pro (fmpcloud.io)
+# A Python wrapper library for the Financial Model Prep pro (fmpcloud.io)
 
 pyfmpcloud is a Python wrapper library for the Financial Model Prep pro API (fmpcloud.io) 
 
@@ -7,7 +7,7 @@ pyfmpcloud is a Python wrapper library for the Financial Model Prep pro API (fmp
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install pyfmpcloud
 
 ```bash
-pip install pyfmpcloud
+pip install pyfmpcloud --upgrade --no-cache-dir 
 ```
 
 Alternatively, download and extract the *.tar.gz folder, and run the following command from the 
