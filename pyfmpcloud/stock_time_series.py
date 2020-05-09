@@ -37,7 +37,7 @@ def ticker_search(match = None, limit = 100, exchange = 'NASDAQ'):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     if match is not None:
-        url = urlroot + 'search?query=' + match + '&limit=' + str(limit) + "&exchange=" + exchange + '&apikey=' + apikey
+        url = urlroot + 'search?query=' + match + '&limit=' + str(limit) + "&exchange=" + exchange.lower() + '&apikey=' + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)
@@ -65,15 +65,15 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
         urlhist = urlroot + 'historical-chart/' + period + '/' + ticker + '?'
     else:
         raise Exception("'period' or 'dailytype' not set. Please set atleast one")
-    if dailytype == 'daily':
-        urlhist = urlhist + "serietype=line&"
+    if dailytype == 'line':
+        urlhist = urlhist + "serietype=line"
     if last is not None:
-        urlhist = urlhist + "timeseries=" + str(last) + "&"
+        urlhist = urlhist + "&timeseries=" + str(last)
     if (last is None) and (start is not None):
-        urlhist = urlhist + "from=" + start + "?"
+        urlhist = urlhist + "&from=" + start 
     if (last is None) and (end is not None):
-        urlhist = urlhist + "to" + end + "?"
-    url = urlhist+ "apikey=" + apikey
+        urlhist = urlhist + "&to" + end 
+    url = urlhist+ "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     data = pd.read_json(data)
@@ -111,7 +111,7 @@ def batch_request_eod_prices(tickers = None, date = None):
         raise ValueError("Data not found for " + str(tickers) + " on specified date " + date)
     return pd.read_json(data)
 
-def stocks_list():
+def symbol_list():
     """Stocks list API from https://financialmodelingprep.com/developer/docs/#Company-Profile
     
     Input:
@@ -145,7 +145,7 @@ def available_markets_and_tickers(markettype = None, marketprices = False):
     
     Input:
         marketType : type of market for which we need the available tickers/prices. marketType can be "ETF", "Commodities", "Euronext", "NYSE", "AMEX", "TSX", "Mutual Funds", "Index", "Nasdaq". 
-        marketPrices : Boolean to indicate if you want the prices of the tickers for the specified marketType.
+        marketprices : Boolean to indicate if you want the prices of the tickers for the specified markettype.
     Returns:
         Dataframe -- Returns list of available tickers per specified market, and their prices if marketPrices = True
     """
@@ -170,7 +170,7 @@ def stock_market_performances(performancetype):
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    url = urlroot + map_performance(performancetype.lower()) + "?apikey=" +apikey
+    url = urlroot + map_performance(performancetype.lower()) + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return pd.read_json(data)

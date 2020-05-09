@@ -43,20 +43,20 @@ def forex_historical_data(ticker, period = None, dailytype = None, last = None, 
     if ((dailytype is not None) or (last is not None)) and (period is not None):
         raise Exception(" 'period' and 'dailytype' cannot be set on the same call. Please choose either, not both. 'last' can only be set with 'dailytype'")
     if dailytype is not None:
-        urlhist = urlroot + 'historical-price-full/' + ticker.upper() + '?'
+        urlhist = urlroot + 'historical-price-full/' + ticker + '?'
     elif period is not None:
-        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker.upper() + '?'
+        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker + '?'
     else:
         raise Exception("'period' or 'dailytype' not set. Please set atleast one")
-    if dailytype == 'daily':
-        urlhist = urlhist + "serietype=line&"
+    if dailytype == 'line':
+        urlhist = urlhist + "serietype=line"
     if last is not None:
-        urlhist = urlhist + "timeseries=" + str(last) + "&"
+        urlhist = urlhist + "&timeseries=" + str(last)
     if (last is None) and (start is not None):
-        urlhist = urlhist + "from=" + start + "?"
+        urlhist = urlhist + "&from=" + start 
     if (last is None) and (end is not None):
-        urlhist = urlhist + "to" + end + "?"
-    url = urlhist+ "apikey=" + apikey
+        urlhist = urlhist + "&to" + end 
+    url = urlhist+ "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     data = pd.read_json(data)

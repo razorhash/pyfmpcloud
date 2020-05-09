@@ -172,7 +172,7 @@ def financial_statements_growth(ticker, period = 'annual'):
     Returns:
         Financial Statements Growth info for selected ticker 
     """
-    urlroot = settings.get_urlroot()
+    urlroot = setings.get_urlroot()
     apikey = settings.get_apikey()
     typeurl = "financial-growth/"
     
