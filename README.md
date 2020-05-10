@@ -184,8 +184,8 @@ cv.rating(ticker = 'AAPL', history = 'daily')
 Examples: 
 
 ```python 
-cv.stock_screener('AAPL', mcgt = 1000000, mclt = 5000000, bgt = 1.2, blt = 2.1)
-cv.stock_screener('AAPL', mcgt = 1000000, mclt = 5000000, volgt = 500000, blt = 2.1, divgt = 1)
+cv.stock_screener(mcgt = 1000000, mclt = 5000000, bgt = 1.2, blt = 2.1)
+cv.stock_screener(mcgt = 1000000, mclt = 5000000, volgt = 500000, blt = 2.1, divgt = 1)
 ```
 ### Stock Time Series
 ```python 
@@ -229,11 +229,11 @@ sts.batch_request_eod_prices(date='2020-04-15')
 sts.batch_request_eod_prices(['AAPL', 'FB', 'MSFT'], date='2020-04-15')
 ```
 
-``stocks_list``: List of all available tickers. 
+``symbol_list``: List of all available tickers. 
 
 Example: 
 ```python
-sts.stock_list()
+sts.symbol_list()
 ```
 
 ``company_profile``: Company profile for the specified ticker
@@ -294,8 +294,8 @@ These contain functions from fmpcloud.io 's API for Crypto  (see fmpcloud.io API
 
 Examples:
 ```python 
-cp.crypto_realtime_quote(fxtype = 'list')
-cp.crypto_realtime_quote(fxtype = 'price')
+cp.crypto_realtime_quote(cryptotype = 'list')
+cp.crypto_realtime_quote(cryptotype = 'price')
 ```
 
 ``crypto_historical_data``: Historical crypto data for specified tickers based on specified ``period`` ('1 min', '5min', '15min', '30min' and '1hour', or daily change type ``dailytype`` (_'line'_, _'change'_). ``period`` and ``dailytype`` cannot be used together. If ``dailytype`` is used, you can specify ``start`` and ``end`` dates for your request. Dates are a simple string (**not** a datetime object) in the format yyyy-mm-dd. Alternatively, you can also specify a request for daily fx prices over the last number of days using ``last``

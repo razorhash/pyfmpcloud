@@ -202,7 +202,7 @@ def map_markets(markettype, marketPrices):
     if marketPrices == False:
         urlm = "symbol/" + marketToApi[markettype]
     elif marketPrices == True:
-        urlm = "quotes/" + marketPricesToApi[marketPrices]
+        urlm = "quotes/" + marketPricesToApi[markettype]
     return urlm
 
 def map_performance(performancetype):
