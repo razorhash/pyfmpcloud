@@ -22,7 +22,7 @@ def real_time_quote(ticker):
     url = urlroot + urlrtq + ticker + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def ticker_search(match = None, limit = 100, exchange = 'NASDAQ'):
     """Ticker search API for partial matching of stocks over specified exchange. From https://fmpcloud.io/documentation#tickerSearch
@@ -40,7 +40,7 @@ def ticker_search(match = None, limit = 100, exchange = 'NASDAQ'):
         url = urlroot + 'search?query=' + match + '&limit=' + str(limit) + "&exchange=" + exchange.lower() + '&apikey=' + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def historical_stock_data(ticker, period = None, dailytype = None, last = None, start = None, end = None):
     """Historical stock data API for . From https://fmpcloud.io/documentation#historicalStockData
@@ -76,7 +76,7 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
     url = urlhist+ "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    data = pd.read_json(data)
+    data = safe_read_json(data)
     if dailytype is not None:
         datatick = data['symbol']
         data_mod = pd.DataFrame.from_records(data['historical'])
@@ -109,7 +109,7 @@ def batch_request_eod_prices(tickers = None, date = None):
     data = response.read().decode("utf-8")
     if pd.read_json(data).empty is True:
         raise ValueError("Data not found for " + str(tickers) + " on specified date " + date)
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def symbol_list():
     """Stocks list API from https://financialmodelingprep.com/developer/docs/#Company-Profile
@@ -124,7 +124,7 @@ def symbol_list():
     url = urlroot + "company/stock/list?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
     
 def company_profile(ticker):
     """Company profile API from https://financialmodelingprep.com/developer/docs/#Symbols-List
@@ -137,7 +137,7 @@ def company_profile(ticker):
     url = urlroot + "company/profile/" + ticker + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
     
 
 def available_markets_and_tickers(markettype = None, marketprices = False):
@@ -158,7 +158,7 @@ def available_markets_and_tickers(markettype = None, marketprices = False):
     url = urlroot + urlmarket + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def stock_market_performances(performancetype):
     """Provides an overview of the market performance across specified performance type. https://fmpcloud.io/documentation#stockMarketPerformances
@@ -173,7 +173,7 @@ def stock_market_performances(performancetype):
     url = urlroot + map_performance(performancetype.lower()) + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def map_markets(markettype, marketPrices):
     marketToApi = {
@@ -219,3 +219,9 @@ def map_performance(performancetype):
     except ValueError:
         raise ValueError("Invalid 'performancetype' value " + performancetype)
     return urlp
+
+def safe_read_json(data):
+    if (data.find("Error Message") != -1):
+        raise Exception(data[20:-3])
+    else:
+        return pd.read_json(data)

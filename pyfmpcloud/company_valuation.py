@@ -14,7 +14,7 @@ def rss_feed():
     url = urlroot + localurl + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def balance_sheet(ticker, period = 'annual', ftype = 'full'):
     """Balance sheet API from https://fmpcloud.io/documentation#balanceSheet
@@ -22,7 +22,7 @@ def balance_sheet(ticker, period = 'annual', ftype = 'full'):
     Input:
         ticker : ticker for which we need the balance sheet values
         period : 'annual', 'quarter'. Periodicity of requested balance sheet. Defaults to annual
-        ftype : 'full', 'growth', 'short', 'growth-short'. Defines input sheet type. Defaults to full. 
+        ftype : 'full', 'growth'. Defines input sheet type. Defaults to full. 
     Returns:
         Balance sheet info for selected ticker
     """  
@@ -34,15 +34,15 @@ def balance_sheet(ticker, period = 'annual', ftype = 'full'):
             typeurl = 'balance-sheet-statement/'
         elif ftype == 'growth':
             typeurl = 'balance-sheet-statement-growth/'
-        elif ftype == 'short':
-            typeurl = 'balance-sheet-statement-shorten/'
-        elif ftype == 'growth-short':
-            typeurl = 'balance-sheet-statement-growth-shorten/'
+#        elif ftype == 'short':
+#            typeurl = 'balance-sheet-statement-shorten/'
+#        elif ftype == 'growth-short':
+#            typeurl = 'balance-sheet-statement-growth-shorten/'
     except KeyError:
         print('Balance sheet type not correct')
         
-    url = urlroot + typeurl + ticker.upper() + "?" + "datatype=csv&period=" + period + "&apikey=" + apikey
-    data = pd.read_csv(url)
+    url = urlroot + typeurl + ticker.upper() + "?" + "&period=" + period + "&apikey=" + apikey
+    data = safe_read_json(url)
     return data
 
 def income_statement(ticker, period = 'annual', ftype = 'full'):
@@ -73,7 +73,7 @@ def income_statement(ticker, period = 'annual', ftype = 'full'):
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
     """Cash Flow Statement API from https://fmpcloud.io/documentation#cashFlowStatement
@@ -103,7 +103,7 @@ def cash_flow_statement(ticker, period = 'annual', ftype = 'full'):
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def financial_ratios(ticker, period = 'annual', ttm = False):
     """Financial Ratios API from https://fmpcloud.io/documentation#financialRatios
@@ -125,7 +125,7 @@ def financial_ratios(ticker, period = 'annual', ttm = False):
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def key_metrics(ticker, period = 'annual'):
     """Key Metrics API from https://fmpcloud.io/documentation#keyMetrics
@@ -143,7 +143,7 @@ def key_metrics(ticker, period = 'annual'):
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def enterprise_value(ticker, period = 'annual'):
     """Enterprise value API from https://fmpcloud.io/documentation#enterpriseValue
@@ -161,7 +161,7 @@ def enterprise_value(ticker, period = 'annual'):
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
     
 def financial_statements_growth(ticker, period = 'annual'):
     """Financial Statements Growth API from https://fmpcloud.io/documentation#financialStatementGrowth
@@ -172,14 +172,14 @@ def financial_statements_growth(ticker, period = 'annual'):
     Returns:
         Financial Statements Growth info for selected ticker 
     """
-    urlroot = setings.get_urlroot()
+    urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     typeurl = "financial-growth/"
     
     url = urlroot + typeurl + ticker.upper() + "?" + "period=" + period + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def dcf(ticker, history = 'today'):
     """Discounted Cash Flow Valuation API from https://fmpcloud.io/documentation#dcf
@@ -209,7 +209,7 @@ def dcf(ticker, history = 'today'):
         raise KeyError('Discounted Cash Flow history requested not correct. ' + history + ' is not an accepted key')
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def market_capitalization(ticker, history = 'today'):
     """Market Capitalization API from https://fmpcloud.io/documentation#marketCapitalization
@@ -232,7 +232,7 @@ def market_capitalization(ticker, history = 'today'):
     url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def rating(ticker, history = 'today'):
     """Rating API from https://fmpcloud.io/documentation#rating
@@ -255,7 +255,7 @@ def rating(ticker, history = 'today'):
     url = urlroot + typeurl + ticker.upper() + "?" + "apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
 
 def stock_screener(mcgt = None, mclt = None, bgt = None, blt = None, divgt = None, divlt = None, volgt = None, vollt = None, sector = None, limit = 100):
     """Stock Screener API from https://fmpcloud.io/documentation#rating
@@ -338,4 +338,11 @@ def stock_screener(mcgt = None, mclt = None, bgt = None, blt = None, divgt = Non
     url = "20%".join(url.split(" "))
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
+
+def safe_read_json(data):
+    if (data.find("Error Message") != -1):
+        raise Exception(data[20:-3])
+    else:
+        return pd.read_json(data)
+    

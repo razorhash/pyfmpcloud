@@ -23,7 +23,7 @@ def forex_realtime_quote(fxtype):
     url = urlroot + urlfx + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return pd.read_json(data)
+    return safe_read_json(data)
     
 def forex_historical_data(ticker, period = None, dailytype = None, last = None, start = None, end = None):
     """Forex Historical data API for partial matching of stocks over specified exchange. From https://fmpcloud.io/documentation#historicalStockData
@@ -59,7 +59,7 @@ def forex_historical_data(ticker, period = None, dailytype = None, last = None, 
     url = urlhist+ "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    data = pd.read_json(data)
+    data = safe_read_json(data)
     if dailytype is not None:
         datatick = data['symbol']
         data_mod = pd.DataFrame.from_records(data['historical'])
@@ -69,3 +69,8 @@ def forex_historical_data(ticker, period = None, dailytype = None, last = None, 
     data = data.set_index('date')
     return data
 
+def safe_read_json(data):
+    if (data.find("Error Message") != -1):
+        raise Exception(data[20:-3])
+    else:
+        return pd.read_json(data)

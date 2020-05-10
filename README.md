@@ -68,15 +68,14 @@ Here, you have functions that wrap around the APIs listed in fmpcloud.io (see [f
 ```python
 cv.rss_feed()
 ```
-``balance_sheet``: This function returns the balance sheet information of the specified ticker. Inputs are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ftype``(_'full'_, _'growth'_, _'short'_ or _'growth-short'_) 
+``balance_sheet``: This function returns the balance sheet information of the specified ticker. Inputs are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ftype``(_'full'_ or _'growth'_) 
 
 Examples:
 
 ```python
 cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'full')
 cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'growth')
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'short')
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'growth-short')
+
 cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'full')
 ```
 
