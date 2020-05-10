@@ -75,8 +75,8 @@ Examples:
 ```python
 cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'full')
 cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'growth')
-
 cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'full')
+cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
 ```
 
 ``income_statement``: This function returns the income statement of the specified ticker. Inputs arguments are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ftype``(_'full'_, _'growth'_)  
