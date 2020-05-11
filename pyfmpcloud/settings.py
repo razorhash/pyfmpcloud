@@ -3,7 +3,7 @@ import configparser
 import sys
 site_packages = next(p for p in sys.path if 'pyfmpcloud' in p)
 
-cfile = site_packages + '/config.ini'
+cfile = site_packages + '/pyfmpcloud/config.ini'
 cfg = configparser.ConfigParser()
 cfg.read(cfile)
 #cfile = 'config.ini'
