@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pyfmpcloud", 
-    version="1.0.0",
+    version="1.0.1",
     author="razorhash",
     author_email="hashim.mazhar@gmail.com",
     license="MIT",
@@ -13,9 +13,9 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/razorhash/fmp/",
-    download_url = "https://github.com/razorhash/fmp/archive/v1.0.0.tar.gz",
+    download_url = "https://github.com/razorhash/fmp/archive/v1.0.1.tar.gz",
     packages=setuptools.find_packages(),
-    package_data={'pyfmpcloud':['pyfmpcloud/*.ini',]},
+    package_data={'':['*.ini'],},
     keywords=["Financial Models Prep", "python", "wrapper", "API", "fmpcloud.io", "fmpcloud"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
