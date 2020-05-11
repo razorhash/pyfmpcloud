@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 import configparser
-import sys
-site_packages = next(p for p in sys.path if 'pyfmpcloud' in p)
+import os
 
-cfile = site_packages + '/pyfmpcloud/config.ini'
+cfile = os.path.join(os.path.dirname(__file__), 'config.ini')
 cfg = configparser.ConfigParser()
 cfg.read(cfile)
-#cfile = 'config.ini'
 
+try:
+    cfg.has_section('API')
+except:
+    raise Exception('Config File was not read.')
+    
 def get_urlroot():
     urlroot = cfg['API']['url_root']
     return urlroot
