@@ -288,7 +288,7 @@ fx.forex_historical_data('EURUSD', dailytype = 'change', last = 30)
 ```python 
 from pyfmpcloud import crypto as cp
 ```
-These contain functions from fmpcloud.io 's API for Crypto  (see fmpcloud.io API documentation). these are:
+These contain functions from fmpcloud.io 's API for Crypto  (see fmpcloud.io API documentation). These are:
 
 ``crypto_realtime_quote``: Real-time quotes for specified crypto tickers. You can request the list of crypto or their prices through the ``cryptotype`` (_'list'_, _'price'_) argument.
 
@@ -307,6 +307,53 @@ cp.crypto_historical_data('BTCUSD', period = '1hour')
 cp.crypto_historical_data('BTCUSD', dailytype = 'line', start = '2019-04-15', end = '2020-04-15')
 cp.crypto_historical_data('BTCUSD', dailytype = 'change', start = '2019-04-15', end = '2020-04-15')
 cp.crypto_historical_data('BTCUSD', dailytype = 'change', last = 30)
+```
+
+### 13F Forms and CUSIP 
+```python 
+from pyfmpcloud import form_13f as ff
+```
+
+These contain functions from fmpcloud.io 's API for Form 13f (see fmpcloud.io API documentation). These are:
+
+``form_list``: List of all 13F forms available on the API.  See: https://fmpcloud.io/documentation#thirteenFormList
+
+Examples:
+
+```python
+ff.form_list()
+```
+
+``form_nametocik``: Converts specified ``company`` name to the corresponding CIK number. Allows partial matching. See: https://fmpcloud.io/documentation#thirteenFormName
+
+Examples:
+
+```python
+ff.form_nametocik('Berskshire')
+```
+
+``form_ciktoname``: Converts the specified ``cik`` number to corresponding company name. See: https://fmpcloud.io/documentation#thirteenFormCik
+
+Examples:
+
+```python
+ff.form_ciktoname('1214816')
+```
+
+``form``: Returns all associated 13F forms for the specified ``cik`` number, for specified ``year`` including issuer name, SEC link, etc.  See: https://fmpcloud.io/documentation#thirteenForm
+
+Examples:
+
+```python
+ff.form('49205', '2020')
+```
+
+``cusip_mapper``: Returns company/security name for specified CUSIP number.  https://fmpcloud.io/documentation#cusipMapper
+
+Examples:
+
+```python
+ff.cusip_mapper('000360206')
 ```
 
 ## Contributing

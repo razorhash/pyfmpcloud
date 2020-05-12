@@ -31,3 +31,9 @@ from .settings import get_urlroot
 from .settings import get_urlrootfmp
 from .settings import get_apikey
 from .settings import set_apikey
+
+from .form_13f import form_list
+from .form_13f import form_nametocik
+from .form_13f import form_ciktoname
+from .form_13f import form
+from .form_13f import cusip_mapper
