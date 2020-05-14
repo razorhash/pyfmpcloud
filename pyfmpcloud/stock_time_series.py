@@ -124,7 +124,7 @@ def symbol_list():
     url = urlroot + "company/stock/list?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
-    return safe_read_json(data)
+    return pd.DataFrame(json.loads(data)['symbolsList'])
     
 def company_profile(ticker):
     """Company profile API from https://financialmodelingprep.com/developer/docs/#Symbols-List
