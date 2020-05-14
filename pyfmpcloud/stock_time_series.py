@@ -7,6 +7,7 @@ Created on Wed May  6 20:29:40 2020
 from urllib.request import urlopen
 import pandas as pd
 from pyfmpcloud import settings
+import json 
 
 def real_time_quote(ticker):
     """Real time quote API from https://fmpcloud.io/documentation#realtimeQuote
