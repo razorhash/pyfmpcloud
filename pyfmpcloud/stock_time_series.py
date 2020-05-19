@@ -97,10 +97,12 @@ def batch_request_eod_prices(tickers = None, date = None):
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    if tickers is None:
+    if (tickers is None) and (date is None):
         url = urlroot + "batch-request-end-of-day-prices?apikey=" + apikey
     elif (tickers is not None) and (date is None):
         raise Exception('For batch query of specific stocks, please specify a date in the format yyyy-mm-dd')
+    elif (tickers is None) and (date is not None):
+        url = urlroot + "batch-request-end-of-day-prices?date=" + date + "&apikey=" + apikey
     elif (tickers is not None) and (date is not None):
         tick = ''
         for ticker in tickers:
