@@ -41,9 +41,9 @@ def crypto_historical_data(ticker, period = None, dailytype = None, last = None,
     if ((dailytype is not None) or (last is not None)) and (period is not None):
         raise Exception(" 'period' and 'dailytype' cannot be set on the same call. Please choose either, not both. 'last' can only be set with 'dailytype'")
     if dailytype is not None:
-        urlhist = urlroot + 'historical-price-full/' + ticker + '?'
+        urlhist = urlroot + 'historical-price-full/' + ticker.upper() + '?'
     elif period is not None:
-        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker + '?'
+        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker.upper() + '?'
     else:
         raise Exception("'period' or 'dailytype' not set. Please set atleast one")
     if dailytype == 'line':

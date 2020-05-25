@@ -20,7 +20,7 @@ def real_time_quote(ticker):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     urlrtq = 'quote/'
-    url = urlroot + urlrtq + ticker + "?apikey=" + apikey
+    url = urlroot + urlrtq + ticker.upper() + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return safe_read_json(data)
@@ -38,7 +38,7 @@ def ticker_search(match = None, limit = 100, exchange = 'NASDAQ'):
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
     if match is not None:
-        url = urlroot + 'search?query=' + match + '&limit=' + str(limit) + "&exchange=" + exchange.lower() + '&apikey=' + apikey
+        url = urlroot + 'search?query=' + match.upper() + '&limit=' + str(limit) + "&exchange=" + exchange.lower() + '&apikey=' + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return safe_read_json(data)
@@ -61,9 +61,9 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
     if ((dailytype is not None) or (last is not None)) and (period is not None):
         raise Exception(" 'period' and 'dailytype' cannot be set on the same call. Please choose either, not both. 'last' can only be set with 'dailytype'")
     if dailytype is not None:
-        urlhist = urlroot + 'historical-price-full/' + ticker + '?'
+        urlhist = urlroot + 'historical-price-full/' + ticker.upper() + '?'
     elif period is not None:
-        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker + '?'
+        urlhist = urlroot + 'historical-chart/' + period + '/' + ticker.upper() + '?'
     else:
         raise Exception("'period' or 'dailytype' not set. Please set atleast one")
     if dailytype == 'line':
@@ -106,7 +106,7 @@ def batch_request_eod_prices(tickers = None, date = None):
     elif (tickers is not None) and (date is not None):
         tick = ''
         for ticker in tickers:
-            tick = tick + ticker + ','
+            tick = tick + ticker.upper() + ','
         url = urlroot + "batch-request-end-of-day-prices/" + tick + "?date=" + date + "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
@@ -137,7 +137,7 @@ def company_profile(ticker):
     """
     urlroot = settings.get_urlroot()
     apikey = settings.get_apikey()
-    url = urlroot + "company/profile/" + ticker + "?apikey=" + apikey
+    url = urlroot + "company/profile/" + ticker.upper() + "?apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
     return safe_read_json(data)
