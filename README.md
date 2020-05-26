@@ -25,15 +25,15 @@ make setup
 
 ## Usage
 
-pyfmpcloud contains a ``settings`` module and four other modules that are the core of the 
+pyfmpcloud contains a ``settings`` module and five other modules that are the core of the 
 pyfmpcloud API wrapper. 
 
 
-The following sections show the four main modules for pyfmpcloud and their usage with examples. 
+The following sections show the five main modules for pyfmpcloud and their usage with examples. 
 Note that the modules are structured in the same way as the API documentation that can be found 
 at [fmpcloud.io API documentation](https://fmpcloud.io/documentation). The names of the functions 
 within the modules also follow the naming convention on this documentation. This helps with staying
-consistent. The four modules and their functions are as follows:
+consistent. The five modules and their functions are as follows:
 
 ### Settings
 ```python 
