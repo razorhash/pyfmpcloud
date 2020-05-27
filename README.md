@@ -74,10 +74,10 @@ cv.rss_feed()
 Examples:
 
 ```python
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'full')
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'growth')
-cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'full')
-cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
+cv.balance_sheet('AAPL', period = 'annual', ftype = 'full')
+cv.balance_sheet('AAPL', period = 'annual', ftype = 'growth')
+cv.balance_sheet('AAPL', period = 'quarter', ftype = 'full')
+cv.balance_sheet('AAPL', period = 'quarter', ftype = 'growth')
 ```
 
 ``income_statement``: This function returns the income statement of the specified ticker. Inputs arguments are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ftype``(_'full'_, _'growth'_)  
@@ -85,10 +85,10 @@ cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
 Examples:
 
 ```python
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'full')
-cv.balance_sheet(ticker = 'AAPL', period = 'annual', ftype = 'growth')
-cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'full')
-cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
+cv.income_statement('AAPL', period = 'annual', ftype = 'full')
+cv.income_statement('AAPL', period = 'annual', ftype = 'growth')
+cv.income_statement('AAPL', period = 'quarter', ftype = 'full')
+cv.income_statement('AAPL', period = 'quarter', ftype = 'growth')
 ```
 
 ``cash_flow_statement``: This function returns the cash-flow statement of the specified ticker. Inputs are Inputs are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ftype``(_'full'_ or _'growth'_)
@@ -96,10 +96,10 @@ cv.balance_sheet(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
 Examples:
 
 ```python
-cv.cash_flow_statement(ticker = 'AAPL', period = 'annual', ftype = 'full')
-cv.cash_flow_statement(ticker = 'AAPL', period = 'annual', ftype = 'growth')
-cv.cash_flow_statement(ticker = 'AAPL', period = 'quarter', ftype = 'full')
-cv.cash_flow_statement(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
+cv.cash_flow_statement('AAPL', period = 'annual', ftype = 'full')
+cv.cash_flow_statement('AAPL', period = 'annual', ftype = 'growth')
+cv.cash_flow_statement('AAPL', period = 'quarter', ftype = 'full')
+cv.cash_flow_statement('AAPL', period = 'quarter', ftype = 'growth')
 ```
 
 ``financial_ratios``: This function returns the financial ratios of the specified ticker. ``ttm`` can provide these ratios for the trailing twelve months. Inputs arguments are: ``ticker``, ``period``(_'annual'_ or _'quarter'_) and ``ttm``(``True`` or ``False``)
@@ -107,10 +107,10 @@ cv.cash_flow_statement(ticker = 'AAPL', period = 'quarter', ftype = 'growth')
 Examples:
 
 ```python
-cv.financial_ratios(ticker = 'AAPL', period = 'annual', ttm = True)
-cv.financial_ratios(ticker = 'AAPL', period = 'annual', ttm = False)
-cv.financial_ratios(ticker = 'AAPL', period = 'quarter', ttm = True)
-cv.financial_ratios(ticker = 'AAPL', period = 'quarter', ttm = False)
+cv.financial_ratios('AAPL', period = 'annual', ttm = True)
+cv.financial_ratios('AAPL', period = 'annual', ttm = False)
+cv.financial_ratios('AAPL', period = 'quarter', ttm = True)
+cv.financial_ratios('AAPL', period = 'quarter', ttm = False)
 ```   
 
 ``key_metrics`` : This function returns the key metrics of the specified ticker. Inputs are: ``ticker`` and  ``period``(_'annual'_ or _'quarter'_)
@@ -118,8 +118,8 @@ cv.financial_ratios(ticker = 'AAPL', period = 'quarter', ttm = False)
 Examples:
 
 ```python
-cv.key_metrics(ticker = 'AAPL', period = 'annual')
-cv.key_metrics(ticker = 'AAPL', period = 'quarter')
+cv.key_metrics('AAPL', period = 'annual')
+cv.key_metrics('AAPL', period = 'quarter')
 ```
 
 ``enterprise_value`` : This function returns the enterprise value of the specified ticker. Inputs are: ``ticker`` and  ``period``(_'annual'_ or _'quarter'_)
@@ -127,16 +127,16 @@ cv.key_metrics(ticker = 'AAPL', period = 'quarter')
 Examples:
 
 ```python
-cv.enterprise_value(ticker = 'AAPL', period = 'annual')
-cv.enterprise_value(ticker = 'AAPL', period = 'quarter')
+cv.enterprise_value('AAPL', period = 'annual')
+cv.enterprise_value('AAPL', period = 'quarter')
 ```
 ``financial_statements_growth`` : This function returns the financial statements growth/evolution over time of the specified ticker. Inputs are: ``ticker`` and  ``period``(_'annual'_ or _'quarter'_)
 
 Examples:
 
 ```python
-cv.financial_statements_growth(ticker = 'AAPL', period = 'annual')
-cv.financial_statements_growth(ticker = 'AAPL', period = 'quarter')
+cv.financial_statements_growth('AAPL', period = 'annual')
+cv.financial_statements_growth('AAPL', period = 'quarter')
 ```
 
 ``dcf`` : This function returns the discounted cashflow value of the specified ticker, over time. Inputs are: ``ticker`` and  ``history``(_'today'_, _'daily'_, _'annual'_ or _'quarter'_)
@@ -144,10 +144,10 @@ cv.financial_statements_growth(ticker = 'AAPL', period = 'quarter')
 Examples:
 
 ```python
-cv.dcf(ticker = 'AAPL', history = 'today')
-cv.dcf(ticker = 'AAPL', history = 'daily')
-cv.dcf(ticker = 'AAPL', history = 'annual')
-cv.dcf(ticker = 'AAPL', history = 'quarter')
+cv.dcf('AAPL', history = 'today')
+cv.dcf('AAPL', history = 'daily')
+cv.dcf('AAPL', history = 'annual')
+cv.dcf('AAPL', history = 'quarter')
 ```
 
 ``market_capitalization`` : This function returns the market capitalization of the specified ticker, over time. Inputs are: ``ticker`` and ``history``(_'today'_, _'daily'_)
@@ -155,8 +155,8 @@ cv.dcf(ticker = 'AAPL', history = 'quarter')
 Examples:
 
 ```python
-cv.market_capitalization(ticker = 'AAPL', history = 'today')
-cv.market_capitalization(ticker = 'AAPL', history = 'daily')
+cv.market_capitalization('AAPL', history = 'today')
+cv.market_capitalization('AAPL', history = 'daily')
 ```
 
 ``rating``: This function returns the ratings of the specified ticker, over time. Inputs are: ``ticker`` and ``history``(_'today'_, _'daily'_)
@@ -164,8 +164,8 @@ cv.market_capitalization(ticker = 'AAPL', history = 'daily')
 Examples:
 
 ```python
-cv.rating(ticker = 'AAPL', history = 'today')
-cv.rating(ticker = 'AAPL', history = 'daily')
+cv.rating('AAPL', history = 'today')
+cv.rating('AAPL', history = 'daily')
 ```
 
 ``stock_screener`` : A function to screen stocks based on market capitalization, beta, dividend payouts, trading volume and  sector. Also allows you to limit the number of rows returned from the request. The following are the arguments to apply the filter.
