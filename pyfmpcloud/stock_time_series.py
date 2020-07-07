@@ -211,8 +211,8 @@ def map_markets(markettype, marketPrices):
 def map_performance(performancetype):
     performanceToAPI = {
             "active" : "actives",
-            "gainers" : "losers",
-            "losers" : "gainers",
+            "gainers" : "gainers",
+            "losers" : "losers",
             "sector" : "sectors-performance",
             "sector historical" : "historical-sectors-performance",
             "market hours" : "market-hours"
