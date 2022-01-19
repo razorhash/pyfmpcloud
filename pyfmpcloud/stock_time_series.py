@@ -73,7 +73,7 @@ def historical_stock_data(ticker, period = None, dailytype = None, last = None, 
     if (last is None) and (start is not None):
         urlhist = urlhist + "&from=" + start 
     if (last is None) and (end is not None):
-        urlhist = urlhist + "&to" + end 
+        urlhist = urlhist + "&to=" + end 
     url = urlhist+ "&apikey=" + apikey
     response = urlopen(url)
     data = response.read().decode("utf-8")
